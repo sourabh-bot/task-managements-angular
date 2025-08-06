@@ -1,1 +1,72 @@
-<p>login works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title text-center mb-0 p-1">
+                        {{ title }}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    @if (mainError) {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ mainError }}
+                    </div>
+                    }
+                    <form #lognForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="email"
+                                        aria-describedby="emailHelp" [(ngModel)]="loginUser.email"
+                                        name="email" required email #emailRef="ngModel" placeholder="Enter email address">
+                                    @if (emailRef?.invalid && (emailRef?.dirty || emailRef?.touched)) {
+                                        @if (emailRef?.errors?.['required']) {
+                                            <div class="text-danger">Email is required.</div>
+                                        }
+                                        @if (emailRef?.errors?.['email']) {
+                                            <div class="text-danger">Please enter a valid email address.</div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                        aria-describedby="passwordHelp" [(ngModel)]="loginUser.password"
+                                        name="password" #passwordRef="ngModel" required [minlength]="8" 
+                                        placeholder="Enter password"/>
+                                    @if (passwordRef?.invalid && (passwordRef?.dirty || passwordRef?.touched)) {    
+                                        @if (passwordRef?.errors?.['required']) {
+                                            <div class="text-danger">Password is required.</div>
+                                        }
+                                        @if (passwordRef?.errors?.['minlength']) {
+                                            <div class="text-danger">Password must be at least 8 characters long.</div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <a routerLink="/register" class="text-primary text-decoration-none">Register</a>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <a routerLink="/forgot-password" class="text-primary text-decoration-none">Forgot password?</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary" [disabled]="lognForm.invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
