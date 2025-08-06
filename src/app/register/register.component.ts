@@ -10,6 +10,27 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegisterComponent {
 
-    title = "Register"
+    title = "Register";
+    registerUser: RegisterUser = {
+        name: '',
+        email: '',
+        phone: '',
+        password: '',
+        confirm_password: ''
+    };
 
+    onSubmit(){
+        console.log(this.registerUser);
+    }
+
+
+
+}
+
+interface RegisterUser{
+    name: string;
+    email: string;
+    phone: string;
+    password: string;
+    confirm_password: string
 }
